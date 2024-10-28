@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<style>
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Maksimum 6 kolon */
+        gap: 15px; /* Kartlar arasındaki boşluk */
+        margin: 20px; /* Dışarıdan boşluk bırakır */
+        padding: 0 15px; /* Yanlardan boşluk */
+    }
+
+    .card {
+        padding: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: white; /* Kart arka plan rengi */
+        height: 100%; /* Kart yüksekliğini otomatik ayarla */
+    }
+
+    .card img {
+        width: 100%; /* Resmi kartın genişliğine göre ayarla */
+        height: 100%; /* Sabit yükseklik, resmin aşağı doğru uzamasını sağlar */
+        object-fit: cover; /* Resmi kesmeden, kapsayıcı alana uygun şekilde göster */
+        border-radius: 8px 8px 0 0; /* Üst köşeleri yuvarlak yapar */
+    }
+
+    .card-body {
+        width: 100%; /* Kart gövdesinin genişliği */
+        height: 100px; /* Kart gövdesinin yüksekliği */
+        display: flex; /* İçindeki öğeleri esnek bir şekilde yerleştirmek için */
+        flex-direction: column; /* Dikey hizalama için */
+        justify-content: center; /* Dikey ortalama */
+        align-items: center; /* Yatay ortalama */
+    }
+</style>
+<div class="card-container">
+    {% for urun in uruns %}
+        <div class="card">
+            {% for image in urun.urunimage_set.all %}
+                {% if forloop.first %}
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ urun.urunad }}">
+                {% endif %}
+            {% endfor %}
+            <div class="card-body">
+                <h5 class="card-title">{{ urun.urunad }}</h5>
+                <a href="#" class="btn btn-primary">İncele</a>
+                {%if user.is_authenticated%}
+                <a href="{% url 'eweb:urunsil' id=urun.id %}" class="btn btn-danger">Delete</a>
+                {%endif%}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    
+    
+      <!--  {% for urun in uruns %} 
+        <tr>
+            <td>{{ urun.urunad }}</td>
+            <td>{{ urun.urunid }}</td>
+            <td>
+                {% if urun.urunimage_set.exists %}   Resim var mı kontrolü 
+                    {% for image in urun.urunimage_set.all %}
+                        <img src="{{ image.image.url }}" alt="{{ urun.urunad }}" style="max-width: 150px;">
+                    {% endfor %}
+                {% else %}
+                    Resim yok
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Hiç ürün bulunamadı.</td>
+        </tr>
+        {% endfor %}  -->
+    
+
+
+{% endblock %}   

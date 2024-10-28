@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">  <!-- enctype eklendi -->
+    {% csrf_token %}
+    <div class="container">
+        <div class="mb-3">
+            <label for="urunid" class="form-label">Ürün ID</label>
+            <input type="text" class="form-control" id="urunid" name="urunid" maxlength="10">
+        </div>
+        <div class="mb-3">
+            <label for="urunad" class="form-label">Ürün Adı</label>
+            <input type="text" class="form-control" id="urunad" name="urunad" maxlength="50">
+        </div>
+        <div class="mb-3">
+            <label for="uruntur" class="form-label">Ürün Türü</label>
+            <input type="text" class="form-control" id="uruntur" name="uruntur" maxlength="50">
+        </div>
+        
+        <label for="cinsiyet">Cinsiyet:</label>
+        <select name="cinsiyet" id="cinsiyet" class="form-select">
+            <option value="K">Kız</option>
+            <option value="E">Erkek</option>
+        </select>
+        <br><br>
+        
+        <div class="mb-3">
+            <label for="image" class="form-label">Resimleri seçiniz</label>
+            <input class="form-control" type="file" id="image" name="images" multiple>  
+        </div>
+        <button type="submit" class="btn btn-primary">ADD</button>  
+    </div>
+</form>
+{% endblock %}
